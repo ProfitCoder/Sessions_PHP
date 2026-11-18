@@ -1,10 +1,10 @@
 RewriteEngine On
 
-RewriteBase /Videoteca/
+RewriteBase /Sessions_PHP/
 
 RewriteRule ^public/ - [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(.*)$ public/index.php [L]
+RewriteRule ^ public/index.php [L]
