@@ -40,12 +40,7 @@ final class Session
     public static function has(string $clave): bool
     {
         // TODO
-        if($_SESSION[$clave] != null)
-        {
-            return true;
-        }
-
-        return false;
+        return isset($_SESSION[$clave]);
     }
 
     public static function remove(string $clave): void

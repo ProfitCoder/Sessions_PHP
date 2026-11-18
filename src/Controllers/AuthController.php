@@ -24,11 +24,10 @@ final class AuthController
     {
         // TODO (Etapa 2): leer 'email' y 'password' de $_POST
         $email = $_POST['email'] ?? [];
-
         $password = $_POST['password'] ?? [];
 
         // TODO: buscar el usuario con (new UserModel())->findByEmail()
-        $userEmailCompr = new UserModel() -> findByEmail($email);
+        $userEmailCompr = (new UserModel() -> findByEmail($email));
 
         // TODO: comprobar la contraseña con password_verify()
         $passwordHasheada = password_verify($password, $userEmailCompr['hash']);
@@ -38,6 +37,8 @@ final class AuthController
             Session::set('user_id', $userEmailCompr['id']);
             redirect('perfil');
         }
+
+        redirect('perfil');
 
         // TODO: si es correcta -> Session::set('user_id', ...) y redirect('perfil')
         //       (Etapa 4: llamad antes a Session::regenerar())
