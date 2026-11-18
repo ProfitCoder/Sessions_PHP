@@ -40,11 +40,18 @@ final class Session
     public static function has(string $clave): bool
     {
         // TODO
+        if($_SESSION[$clave] != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public static function remove(string $clave): void
     {
         // TODO
+        unset($_SESSION[$clave]);
     }
 
     // ---------- Etapa 1 y 2: cierre de sesión ----------
@@ -52,6 +59,21 @@ final class Session
     {
         // Etapa 1: solo session_destroy().
         // Etapa 2 (TODO): completar con los 3 pasos del apartado 3.6
+        $_SESSION = [];
+
+        if(ini_get('session.use_cookies'))
+        {
+            $p = session_get_cookie_params();
+            setcookie(session_name(), '',[
+                'expires' => time() - 42000,
+                'path'    => $p['path'],
+                'domain'  => $p['domain'],
+                'secure'  => $p['secure'],
+                'httonly' => $p['httonly'],
+                'samesite'=> $p['samesite'],
+            ]);
+        }
+        
         session_destroy();
     }
 
