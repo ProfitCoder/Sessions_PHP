@@ -13,13 +13,8 @@ final class UserController
     public function perfil(): void
     {
         // Solo LEE la sesión; nunca la modifica.
-        if (!Session::has('user_id'))
-        {
-            redirect('login');
-        }
+        $usuario = new UserModel()->findById((int) Session::get('user_id'));
 
-        $usuario = (new UserModel())->findById((int) Session::get('user_id'));
-
-        (new Pages())->render('user/perfil', ['usuario' => $usuario]);
+        new Pages()->render('user/perfil', ['usuario' => $usuario]);
     }
 }
