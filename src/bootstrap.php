@@ -17,6 +17,7 @@ use Core\Session;
 Session::iniciar();
 
 // Etapa 6: aquí se llamará a Session::comprobarCaducidad();
+Session::comprobarCaducidad();
 
 // Evalúa la URL recibida y ejecuta la función/controlador asociado
 Router::dispatch();
