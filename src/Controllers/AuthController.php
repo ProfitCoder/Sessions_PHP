@@ -17,7 +17,10 @@ final class AuthController
     // y pasadlos a la vista (la vista no accede a Session).
     public function showLogin(): void
     {
-        (new Pages())->render('auth/login', ['error' => null, 'info' => null]);
+        (new Pages())->render('auth/login', [
+            'error' => Session::getFlash('error'), 
+            'info' => Session::getFlash('info')
+        ]);
     }
 
     public function login(): void
@@ -35,6 +38,7 @@ final class AuthController
             redirect('perfil');
         }
 
+        Session::setFlash('error','Correo o Contraseña Incorrectos');
         redirect('login');
     }
 
@@ -42,6 +46,16 @@ final class AuthController
     {
         // TODO (Etapa 2): Session::destruir() y redirect('login')
         Session::destruir();
+
+        /*
+            Este paso se hace, porque si se destruye la sesion, no se puede guardar el mensaje flash
+            como solucion, creamos una asi, para poder mostrar el mensaje de info
+        */
+        session_id('');
+        Session::iniciar();
+
+        Session::setFlash('info','Has cerrado la sesion correctamente');
+
         redirect('login');
     }
 }
