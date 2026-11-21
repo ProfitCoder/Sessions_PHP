@@ -25,6 +25,7 @@ final class AuthMiddleware
         
         if (!Session::has('user_id'))
         {
+            Session::setFlash('error','Debes iniciar sesion para ver esta página');
             redirect('login');
         }
     }
