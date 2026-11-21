@@ -47,12 +47,7 @@ final class AuthController
         // TODO (Etapa 2): Session::destruir() y redirect('login')
         Session::destruir();
 
-        /*
-            Este paso se hace, porque si se destruye la sesion, no se puede guardar el mensaje flash
-            como solucion, creamos una asi, para poder mostrar el mensaje de info
-        */
-        session_id('');
-        Session::iniciar();
+        Session::reiniciar();
 
         Session::setFlash('info','Has cerrado la sesion correctamente');
 
