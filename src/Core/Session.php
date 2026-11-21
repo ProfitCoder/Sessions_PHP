@@ -107,6 +107,17 @@ final class Session
         return $mensaje;
     }
 
+    //Creamos este metodo para optimizar en vez de llamar repetidamente los argumentos de dentro de este metodo en otras partes del codigo
+    public static function reiniciar(): void
+    {
+        /*
+            Este paso se hace, porque si se destruye la sesion, no se puede guardar el mensaje flash
+            como solucion, creamos una asi, para poder mostrar el mensaje de info
+        */
+        session_id('');
+        self::iniciar();
+    }
+
     // ---------- Etapa 6: caducidad por inactividad ----------
     public static function comprobarCaducidad(): void
     {
@@ -131,8 +142,7 @@ final class Session
             {
                 self::destruir();
 
-                session_id('');
-                self::iniciar();
+                self::reiniciar();
 
                 self::setFlash('error', 'Tu sesión ha caducado por inactividad');
 
